@@ -1,0 +1,25 @@
+#! /bin/sh
+
+set -e
+
+DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+
+IMG=$(docker build -q $DIR/.workbench -f $DIR/.workbench/Dockerfile.$(uname -m))
+
+if [ "$#" -eq 0 ]; then
+    CMD=bash
+else
+    CMD="$@"
+fi
+
+docker run --rm \
+    -e http_proxy="$http_proxy" \
+    -e https_proxy="$https_proxy" \
+    -e no_proxy="$no_proxy" \
+    -v /etc/passwd:/etc/passwd \
+    -v /etc/group:/etc/group \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --net host \
+    --pid host \
+    -v $HOME:$HOME \
+    -it $IMG sudo -u ${USER} -E sh -c "cd $DIR; HOME=$HOME $CMD"
