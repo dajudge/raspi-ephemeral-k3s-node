@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM resin/rpi-raspbian
 
 RUN apt update && \
     apt install -y curl sudo
