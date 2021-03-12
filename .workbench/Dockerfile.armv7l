@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian
+FROM balenalib/raspberrypi3-debian:sid
 
 RUN apt update && \
     apt install -y curl sudo
