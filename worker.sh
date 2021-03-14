@@ -5,14 +5,14 @@ set -e
 DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 
 if [ "$INTERACTIVE" = "true" ]; then
-  MODE="--it"
+  MODE="-it"
 else
   MODE="-d"
 fi
 
 IMG=$(docker build -q $DIR/worker)
 
-docker run --rm $MODE \
+docker run --rm \
   --tmpfs /etc/rancher \
   --tmpfs /var/lib \
   --tmpfs /var/run \
@@ -23,4 +23,4 @@ docker run --rm $MODE \
   --net host \
   --read-only \
   --env-file .env \
-  IMG
+  $MODE IMG
