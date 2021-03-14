@@ -14,6 +14,10 @@ IMG=$(docker build -q $DIR/master)
 
 . $DIR/.env
 
+if [ -z "$DATADIR" ]; then
+  DATA_DIR=$DIR/.data/data
+fi
+
 docker run --rm \
   -v $DIR/.data/output:/output \
   --tmpfs /run \
@@ -22,6 +26,7 @@ docker run --rm \
   -v $DIR/.data/etc_rancher:/etc/rancher \
   -v $DIR/.data/var_lib:/var/lib \
   -v $DIR/.data/output:/output \
+  -v $DATA_DIR:/data \
   --read-only \
   -e K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml \
   --privileged \
