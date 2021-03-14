@@ -19,6 +19,7 @@ if [ -z "$DATADIR" ]; then
 fi
 
 docker run --rm \
+  --name k3s-master \
   -v $DIR/.data/output:/output \
   --tmpfs /run \
   --tmpfs /var \
