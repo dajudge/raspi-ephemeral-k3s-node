@@ -23,4 +23,5 @@ docker run --rm \
   --net host \
   --read-only \
   --env-file .env \
-  $MODE $IMG
+  --entrypoint "" \
+  $MODE $IMG k3s agent
