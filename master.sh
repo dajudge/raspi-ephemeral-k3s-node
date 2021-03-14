@@ -14,7 +14,7 @@ IMG=$(docker build -q $DIR/master)
 
 . $DIR/.env
 
-if [ -z "$DATADIR" ]; then
+if [ -z "$DATA_DIR" ]; then
   DATA_DIR=$DIR/.data/data
 fi
 
