@@ -23,4 +23,4 @@ docker run --rm \
   --net host \
   --read-only \
   --env-file .env \
-  $MODE IMG
+  $MODE $IMG
