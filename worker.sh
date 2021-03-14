@@ -2,6 +2,8 @@
 
 set -e
 
+DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+
 . $DIR/.env
 
 IP=$(ip addr show dev $PUBLIC_INTERFACE | grep '^\s*inet\s' | awk '{print $2}' | sed 's/\/.*//')
