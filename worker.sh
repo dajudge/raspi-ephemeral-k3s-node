@@ -2,26 +2,12 @@
 
 set -e
 
-DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+. $DIR/.env
 
-if [ "$INTERACTIVE" = "true" ]; then
-  MODE="-it"
-else
-  MODE="-d"
-fi
+IP=$(ip addr show dev $PUBLIC_INTERFACE | grep '^\s*inet\s' | awk '{print $2}' | sed 's/\/.*//')
+NODE_NAME="raspi-$(echo $IP | sed 's/\\./_/g')"
 
-IMG=$(docker build -q $DIR/worker)
-
-docker run --rm \
-  --tmpfs /etc/rancher \
-  --tmpfs /var/lib \
-  --tmpfs /var/run \
-  --tmpfs /var/log \
-  --tmpfs /tmp \
-  --tmpfs /run \
-  --privileged \
-  --net host \
-  --read-only \
-  --env-file .env \
-  --entrypoint "" \
-  $MODE $IMG k3s agent
+k3s agent --token $K3S_TOKEN \
+  --server $K3S_URL \
+  --node-ip $IP --node-external-ip $IP \
+  --node-name $NODE_NAME
