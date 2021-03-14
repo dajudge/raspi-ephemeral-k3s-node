@@ -4,7 +4,7 @@ set -e
 
 DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 
-if [ INTERACTIVE == "true" ]; then
+if [ "$INTERACTIVE" == "true" ]; then
   MODE="--it"
 else
   MODE="-d"
