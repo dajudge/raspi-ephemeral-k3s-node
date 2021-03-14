@@ -12,7 +12,6 @@ services:
     privileged: true
     read_only: true
     volumes:
-      - ./.data/master/etc_rancher:/etc/rancher
-      - ./.data/master/var_lib:/var/lib
-      - ./.data/master/output:/output
+      - ./.data/worker/etc_rancher:/etc/rancher
+      - ./.data/worker/var_lib:/var/lib
 
