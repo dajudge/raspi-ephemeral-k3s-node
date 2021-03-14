@@ -1,0 +1,18 @@
+version: '3'
+services:
+
+  worker:
+    build: worker
+    command: k3s agent
+    tmpfs:
+      - /run
+      - /var/run
+      - /tmp
+      - /var/log
+    privileged: true
+    read_only: true
+    volumes:
+      - ./.data/master/etc_rancher:/etc/rancher
+      - ./.data/master/var_lib:/var/lib
+      - ./.data/master/output:/output
+
