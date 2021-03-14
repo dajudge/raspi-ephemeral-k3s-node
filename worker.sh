@@ -2,6 +2,8 @@
 
 set -e
 
+IMG=$(docker build -q $DIR/master)
+
 . $DIR/.env
 
 IP=$(ip addr show dev $PUBLIC_INTERFACE | grep '^\s*inet\s' | awk '{print $2}' | sed 's/\/.*//')
